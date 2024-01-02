@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block siebi %}
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+{% endfor %}
+  <section id="recommended" class="pt-md-5" style="margin-bottom: 10rem;">
+    <h2 class="text-md-center my-5">რეგისტრაცია: </h2>
+    
+    <div class="container-fluid">
+      {% if form.errors %}
+        {% for field, errors in form.errors.items() %}
+          {% for shecdoma in errors %}
+            <div class="alert alert-danger">
+              {{ shecdoma }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            {{ form.username.label}}
+            {{ form.username(class="form-control")}}<br>
+
+            {{ form.password.label}}
+            {{ form.password(class="form-control")}}<br>
+
+            {{ form.repeat_password.label}}
+            {{ form.repeat_password(class="form-control")}}<br>
+
+            {{ form.sex.label}}
+            {{ form.sex}}<br>
+
+            {{ form.birthday.label}}
+            {{ form.birthday(class="form-control")}}<br><br>
+
+            {{ form.submit(class="btn btn-danger container")}}<br><br><hr>
+
+            <p class="container">შექმნილი გაქვთ ანგარიში? გაიარეთ <a href="/authorization">ავტორიზაცია</a></p><br>
+        </form>
+        
+    </div>
+
+    
+  </div>    
+  </section>
+{% endblock %}

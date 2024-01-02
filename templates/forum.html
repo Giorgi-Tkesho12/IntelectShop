@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+ფორუმი
+{% endblock %}
+{% block siebi %}
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+{% endfor %}
+  <section id="recommended" class="pt-md-5" style="margin-bottom: 10rem; background: rgb(234, 228, 228);">
+    <h2 class="text-md-center my-5">ფორუმი:</h2><hr>
+    <a href="/add_comment"><button type="button" class="btn btn-success container">კომენტარის დამატება</button></a><br><br>
+        {% for comment in comments %}
+        <div class="shadow p-3 mb-5 bg-body rounded">
+        <h3>ავტორი: {{comment.commenter.username}}</h3><br>
+        <h5>კომენტარი: {{comment.content}}</h5><br><hr>
+        <p>შექმნის დრო: {{comment.date_commented}}</p>
+        <a href="/edit_comments/{{ comment.id }}" class="btn btn-secondary container">✏️ რედაქტირება ✏️</a></li>
+        <a href="/delete_comments/{{ comment.id }}" class="btn btn-danger container">🗑️ წაშლა 🗑️</a></li>
+
+        </div><hr>
+        {% endfor %}  
+  </section>
+{% endblock %}

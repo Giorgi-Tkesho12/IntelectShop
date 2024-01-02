@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+ძიება...
+{% endblock %}
+
+{% block siebi %}
+  <section id="recommended" class="pt-md-5" style="margin-bottom: 10rem;">
+    <h2 class="text-md-center my-5">ძიების შედეგები:</h2>
+    <hr>
+    <div class="row row-cols-lg-4 row-cols-md-2 gy-3 row-cols-sm-1">
+      {% for writer in writers %}
+      <div class="col gy-5">
+        <div class="shadow p-3 mb-5 bg-body rounded">
+              <img src="/static/{{ writer.img }}" class="card-img-top" alt="{{ writer.name }}">
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><h5 class="card-title container">{{ writer.name }}</h5></li>
+                  <li class="list-group-item"><a href="/mwerali/{{ writer.id }}" class="btn btn-warning">➡️ გადადი უფრო მეტის სანახავად ⬅️</a></li>
+                  {% if current_user.role == "admin" %}
+                    <li class="list-group-item"><a href="/edit_writer/{{ writer.id }}" class="btn btn-secondary container">✏️ რედაქტირება ✏️</a></li>
+                    <li class="list-group-item"><a href="/delete_writer/{{ writer.id }}" class="btn btn-danger container">🗑️ წაშლა 🗑️</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+      </div>
+      {% endfor %}
+      
+    
+    </div>    
+  </section>
+{% endblock %}

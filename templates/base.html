@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    
+    <title>
+      {% block title %}
+      IntelectShop
+      {% endblock %}
+    </title>
+    
+    <link href="/static/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body class="container">
+<div class="alert alert-secondary container-lg" role="alert" style="background: #2b3035; color: white">
+  {% if current_user.role == "admin" %}
+    <h1 class="paragraph">გამარჯობა ადმინისტრატორო {{current_user.username}}</h1>
+  {% elif current_user.role == "user" %}
+  <h1 class="paragraph">სალამი {{current_user.username}}, რისი დათვალიერება გსურთ?</h1> 
+  {% else %}
+  <h1 class="paragraph">მოგესალმებით ინტელექტშოპში, რით შეგვიძლია დაგეხმაროთ?</h1> 
+  {% endif %}  
+</div>
+
+
+
+<!--ნავბარი-->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary container" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">ინტელექტშოპი</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+          <li class="nav-item">
+            {% if current_user.is_authenticated %}
+            <a class="nav-link active" aria-current="page" href="/forum">ფორუმი</a>
+            {% else %}
+            <a class="nav-link active disabled" aria-current="page" aria-disabled="true" href="#">ფორუმი</a>
+            {% endif %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              მწერლების კატეგორია
+            </a>
+            <ul class="dropdown-menu">
+              
+              <li><a class="dropdown-item" href="/category/1">ქართველი</a></li>
+              <li><a class="dropdown-item" href="/category/2">უცხოელი</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+              {% if current_user.role=="admin" %}
+              <a href="/add_writer"><button type="button" class="btn btn-warning">დამატება</button></a>
+              {% endif %}
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="btn btn-outline-primary" href="/about_me">About</a>
+          </li>
+
+          <li class="nav-item ms-5">
+            <div class="d-flex" role="search">
+              {% if current_user.is_authenticated %}
+              <input class="form-control" type="search" placeholder="ძიება..." id="searchInput">
+              <button class="btn btn-outline-info" type="submit" id="searchButton">ძიება</button>
+              {% else %}
+              <input class="form-control disabled" type="search" placeholder="ძიება..." id="searchInput" disabled>
+              <button class="btn btn-info disabled" type="submit" id="searchButton" disabled>ძიება</button>
+              {% endif %}
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <div class="btn-group ms-5" role="group" aria-label="Basic outlined example">
+              {% if current_user.is_authenticated %}
+              <button type="button" class="btn btn-secondary disabled" disabled>{{current_user.role}} PANEL</button>
+              <a href="/logout"><button type="button" class="btn btn-danger">გამოსვლა</button></a>
+              {% else %}
+              <a href="/registration" class="btn btn-outline-danger">რეგისტრაცია</a>
+              <a href="/authorization" class="btn btn-outline-success">ავტორიზაცია</a>
+              {% endif %}
+            </div>
+          </li>
+
+
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% block siebi %}
+  {% endblock %}
+
+</body>
+<script src="/static/search.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</html>

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+კომენტარის დამატება/რედაქტირება
+{% endblock %}
+
+{% block siebi %}
+  <section id="recommended" class="pt-md-5" style="margin-bottom: 10rem;">
+    {% if request.endpoint =="add_comment" %}
+    <h2 class="text-md-center my-5">კომენტარის დამატება:</h2>
+    {% elif request.endpoint == "edit_comment" %}
+    <h2 class="text-md-center my-5">კომენტარის რედაქტირება:</h2>
+    {% endif %}
+      
+    <div class="container-fluid">
+      {% if form.errors %}
+        {% for field, errors in form.errors.items() %}
+          {% for shecdoma in errors %}
+            <div class="alert alert-danger">
+              {{ shecdoma }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            {{ form.content(class = "form-control my-4", placeholder = form.content.label.text)}}
+            {{ form.submit(class = "btn btn-warning my-4 container")}}
+        </form>
+        
+    </div>
+
+    
+  </div>    
+  </section>
+{% endblock %}

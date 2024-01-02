@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+მწერლების დამატება/რედაქტირება
+{% endblock %}
+
+{% block siebi %}
+  <section id="recommended" class="pt-md-5" style="margin-bottom: 10rem;">
+    {% if request.endpoint == "add_writ" %}
+      <h2 class="text-md-center my-5">მწერლების დამატება:</h2>
+    {% elif request.endpoint == "edit_writer" %}
+      <h2 class="text-md-center my-5">მწერლების რედაქტირება:</h2>
+    
+    {% endif %}
+    
+    <div class="container-fluid">
+      {% if form.errors %}
+        {% for field, errors in form.errors.items() %}
+          {% for shecdoma in errors %}
+            <div class="alert alert-danger">
+              {{ shecdoma }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            {{ form.name(class = "form-control my-4", placeholder = form.name.label.text)}}
+            {{ form.img(class = "form-control my-4", placeholder = form.img.label.text, accept=".jpg, .jpeg, .png")}}
+            {{ form.description(class = "form-control my-4", placeholder = form.description.label.text)}}
+            {{form.category.label}}
+            {{ form.category(class = "form-control my-4")}}
+            
+
+            {{ form.submit(class = "btn btn-warning my-4 container")}}
+        </form>
+        
+    </div>
+
+    
+  </div>    
+  </section>
+{% endblock %}
